@@ -66,4 +66,10 @@ GROUP BY CustomerID;
 -- count : returns the number of rows present in a window.
 -- count(*) : count every row.
 -- count(column_name) : count only non-null values.
-	
+-- find total number of Orders with order id and order date for each customer
+SELECT
+	OrderID,
+	OrderDate,
+	COUNT(*) OVER() AS total_records,
+	COUNT(*) OVER(PARTITION BY CustomerID) AS order_by_customer
+FROM Sales.Orders;
