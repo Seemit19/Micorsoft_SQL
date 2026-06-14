@@ -73,3 +73,27 @@ SELECT
 	COUNT(*) OVER() AS total_records,
 	COUNT(*) OVER(PARTITION BY CustomerID) AS order_by_customer
 FROM Sales.Orders;
+
+-- sum : returns the sum of value within a window. allows only valid numeric value.
+-- Find the total sales across all orders
+-- And the total sales for each product
+-- Additionally provide details such order Id, order date
+
+SELECT
+	OrderID,
+	OrderDate,
+	Sales,
+	ProductID,
+	SUM(Sales) OVER () TotalSales,
+	SUM(Sales) OVER (PARTITION BY ProductID) SalesByProducts
+FROM Sales.Orders;
+
+-- sum allong with other aggregate functions can be used as comparison analysis.
+-- compare the current value and aggregated value of window functions 
+
+SELECT
+	OrderID,
+	ProductID,
+	Sales,
+	SUM(Sales) OVER() AS total_sales
+FROM Sales.Orders
