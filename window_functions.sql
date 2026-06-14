@@ -1,3 +1,7 @@
+/* 
+It is advised to execute " USE SalesDB; " to actitvate the database.
+*/
+USE SalesDB;
 -- * window function can only be used in SELECT and ORDER BY clauses. That mean it can't be used to filter data.
 
 SELECT
@@ -57,3 +61,9 @@ SELECT
 	RANK() OVER(ORDER BY Sales DESC) AS rank_customer
 FROM Sales.Orders
 GROUP BY CustomerID;
+
+-- aggregate window function
+-- count : returns the number of rows present in a window.
+-- count(*) : count every row.
+-- count(column_name) : count only non-null values.
+	
