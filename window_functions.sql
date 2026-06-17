@@ -122,4 +122,33 @@ SELECT
 	AVG(COALESCE(Score,0)) OVER () AS AvgScoreWithoutNulls
 FROM Sales.Customers
 
---
+-- max : gives the maximum nnmeric value within a window.
+-- min : gives the minimum numeric value within a window.
+-- ** handle the nulls**
+-- Find the highest and lowest sales of all orders
+-- Find the highest and lowest sales for each product
+-- Additionally provide details such order Id, order date
+
+SELECT
+	OrderID,
+	OrderDate,
+	ProductID,
+	Sales,
+	MAX(Sales) OVER() HighestSales,
+	MIN(Sales) OVER() LowestSales,
+	MAX(Sales) OVER(PARTITION BY ProductID) HighestSalesByProduct,
+	MIN(Sales) OVER(PARTITION BY ProductID) LowestSalesByProduct
+FROM Sales.Orders
+
+-- Find the deviation of each sales from the minimum and maximum sales amounts
+
+SELECT
+	OrderID,
+	OrderDate,
+	ProductID,
+	Sales,
+	MAX(Sales) OVER() HighestSales,
+	MIN(Sales) OVER() LowestSales,
+	Sales - MIN(Sales) OVER() DeviationFromMin,
+	MAX(Sales) OVER() - Sales DeviationFromMax
+FROM Sales.Orders
