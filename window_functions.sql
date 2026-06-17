@@ -95,5 +95,7 @@ SELECT
 	OrderID,
 	ProductID,
 	Sales,
-	SUM(Sales) OVER() AS total_sales
+	SUM(Sales) OVER() AS total_sales,
+	ROUND(CAST(Sales AS Float) / SUM(Sales) OVER () * 100,2) AS PercentageOfTotal
 FROM Sales.Orders
+
