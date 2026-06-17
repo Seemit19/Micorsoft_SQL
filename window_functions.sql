@@ -99,3 +99,27 @@ SELECT
 	ROUND(CAST(Sales AS Float) / SUM(Sales) OVER () * 100,2) AS PercentageOfTotal
 FROM Sales.Orders
 
+-- avg : finds the average of numbers within a window.
+-- **before calulating average replace all the null with zero (0).
+
+SELECT
+	OrderID,
+	OrderDate,
+	Sales,
+	ProductID,
+	AVG(Sales) OVER() AS Avgsales,
+	AVG(Sales) OVER(PARTITION BY ProductID) AS Avg_sales_by_product
+FROM Sales.Orders
+
+-- Find the average scores of customers
+-- Additionally provide details such CustomerID and LastName
+
+SELECT
+	CustomerID,
+	LastName,
+	Score,
+	AVG(Score) OVER() AS AvgScore,
+	AVG(COALESCE(Score,0)) OVER () AS AvgScoreWithoutNulls
+FROM Sales.Customers
+
+--
